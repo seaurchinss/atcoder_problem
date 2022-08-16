@@ -1,5 +1,5 @@
 //エイシングプログラミングコンテスト2020　D
-https://atcoder.jp/contests/aising2020/tasks/aising2020_d
+//https://atcoder.jp/contests/aising2020/tasks/aising2020_d
 #include<iostream>
 #include<algorithm>
 #include<vector>
