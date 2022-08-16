@@ -1,0 +1,87 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cmath>
+#include<string>
+#include<map>
+#include<set>
+#include<queue>
+#include<deque>
+#include<utility>
+ 
+#define rep(i,s,e) for(int i=s;i<e;i++)
+#define mod 1000000007
+#define inf 1LL<<60
+ 
+using namespace std;
+ 
+using graph = vector<vector<int>>;
+using ll = long long;
+ 
+ 
+int dx[8]={1,0,-1,0,1,1,-1,-1},dy[8]={0,1,0,-1,1,-1,1,-1};
+ 
+typedef pair<int,int> P;
+
+int main(){
+    int n;
+    cin >> n;
+    string x;
+    cin >> x;
+    int m=0;
+    rep(i,0,x.size()){
+        if(x[i]=='1') ++m;
+    }
+    //m+1,m-1の時の総和と各数の値を記録
+    vector<int> mp(n+1),mm(n+1);
+    int tmpmp=1, tmpmm=1;
+    int summp=0, summm=0;
+    rep(i,0,n){
+        mp[n-i-1]=(tmpmp);
+        mm[n-i-1]=(tmpmm);
+        // cout << tmpmp << endl;
+        if(x[n-1-i]=='1'){
+            summp+=tmpmp, summp%=m+1;
+            if(m-1!=0) summm+=tmpmm, summm%=m-1;
+        }
+        tmpmp*=2; tmpmp%=(m+1);
+        if(m-1!=0) {tmpmm*=2; tmpmm%=(m-1);}
+    }
+    //2*10^5以下の数のpopcountを求める
+    vector<int> popcount(2*100001);
+    rep(i,1,2*100001){
+        int j = 1;
+        int count=0; //1の数
+        while(j<=i){
+            if(j&i) ++count;
+            j*=2;
+        }
+        if(count!=0){
+            int tmp = i%count;
+            popcount[i] = popcount[tmp]+1;
+        }
+        // cout << popcount[i] << endl;
+        //tmpはiをjで割ったあまりなので0かcount以下の数countはiより大きく
+        //なることがないのでpopcount[tmp]は必ず前に記録してあるはず
+        //よってdpの要領で各popcountをO(n)でもとめられる
+        //popcount[0]=0;
+    }
+
+
+    rep(i,0,n){
+        int now = i;
+        int now_sum;
+        if(x[now]=='1'){
+            if(m-1==0) {
+                cout << 0 << endl;
+                continue;
+            }
+            now_sum = summm-mm[now];
+            if(now_sum<0) now_sum+=(m-1);
+            now_sum%=m-1;
+        }
+        if(x[now]=='0') now_sum = summp+mp[now],now_sum%=m+1;
+        cout << popcount[now_sum]+1 << endl; 
+        //sum求める際にm+1,m-1で割っている分を足す
+    }
+}
