@@ -15,3 +15,12 @@ https://atcoder.jp/contests/abc261/tasks/abc261_e
 
 abc 244-e 
 https://atcoder.jp/contests/abc244/tasks/abc244_e
+
+arc122-a 
+https://atcoder.jp/contests/arc122/tasks/arc122_a
+
+agc 52-a 
+https://atcoder.jp/contests/agc052/tasks/agc052_a
+
+abc 212-d 
+https://atcoder.jp/contests/abc212/tasks/abc212_d
